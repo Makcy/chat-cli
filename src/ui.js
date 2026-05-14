@@ -10,11 +10,18 @@ function completer(line) {
 }
 
 export function initUI(onMessage) {
+  process.stdin.removeAllListeners('keypress');
+  if (process.stdin.isTTY) {
+    process.stdin.setRawMode(true);
+  }
+  process.stdin.resume();
+
   rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     prompt: '> ',
-    completer
+    completer,
+    terminal: true
   });
 
   rl.prompt();

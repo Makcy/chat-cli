@@ -42,7 +42,10 @@ export async function parseCli() {
     validate: (input) => input.trim() ? true : 'IP cannot be empty',
   });
 
-  const answers = await inquirer.prompt(questions);
+  let answers = {};
+  if (questions.length > 0) {
+    answers = await inquirer.prompt(questions);
+  }
 
   return {
     role: answers.role || options.role,
