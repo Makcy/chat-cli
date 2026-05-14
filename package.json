@@ -1,8 +1,12 @@
 {
-  "name": "networkChat",
+  "name": "xx-chat",
   "version": "1.0.0",
+  "description": "A simple LAN CLI chat tool",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "xx-chat": "./index.js"
+  },
   "author": "xiaozhou <librazhoux@hotmail.com>",
   "license": "MIT",
   "dependencies": {
