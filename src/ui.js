@@ -2,9 +2,32 @@ import readline from 'readline';
 import chalk from 'chalk';
 
 let rl;
+let sendColor = 'green';
+let recvColor = 'cyan';
+const validColors = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray'];
+
+function isValidHexColor(color) {
+  return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/i.test(color);
+}
+
+export function setSendColor(color) {
+  if (validColors.includes(color) || isValidHexColor(color)) {
+    sendColor = color;
+    return true;
+  }
+  return false;
+}
+
+export function setRecvColor(color) {
+  if (validColors.includes(color) || isValidHexColor(color)) {
+    recvColor = color;
+    return true;
+  }
+  return false;
+}
 
 function completer(line) {
-  const completions = ['/nickname', '/quit', '/help'];
+  const completions = ['/nickname', '/quit', '/help', '/color-send', '/color-recv'];
   const hits = completions.filter((c) => c.startsWith(line));
   return [hits.length ? hits : line.startsWith('/') ? completions : [], line];
 }
@@ -49,10 +72,13 @@ export function renderSystemMessage(msg) {
 
 export function renderChatMessage(nickname, message, isSelf = false) {
   clearLine();
+  const time = new Date().toLocaleTimeString();
   if (isSelf) {
-    console.log(chalk.green(`[我(${nickname})] ${message}`));
+    const colorFn = isValidHexColor(sendColor) ? chalk.hex(sendColor) : (chalk[sendColor] || chalk.green);
+    console.log(colorFn(`[我(${nickname})] ${message} `) + chalk.gray(`[${time}]`));
   } else {
-    console.log(chalk.blue(`[${nickname}] ${message}`));
+    const colorFn = isValidHexColor(recvColor) ? chalk.hex(recvColor) : (chalk[recvColor] || chalk.cyan);
+    console.log(colorFn(`[${nickname}] ${message} `) + chalk.gray(`[${time}]`));
   }
   if (rl) rl.prompt(true);
 }

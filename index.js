@@ -2,7 +2,7 @@
 import { parseCli } from './src/cli.js';
 import { startServer } from './src/server.js';
 import { startClient } from './src/client.js';
-import { initUI, renderSystemMessage, renderChatMessage } from './src/ui.js';
+import { initUI, renderSystemMessage, renderChatMessage, setSendColor, setRecvColor } from './src/ui.js';
 
 async function main() {
   const { role, ip, nickname } = await parseCli();
@@ -28,7 +28,7 @@ async function main() {
       const command = parts[0];
 
       if (command === '/' || command === '/help') {
-        renderSystemMessage('可用命令：\n  /nickname <新昵称> - 修改昵称\n  /quit - 退出聊天');
+        renderSystemMessage('可用命令：\n  /nickname <新昵称> - 修改昵称\n  /color-send <颜色> - 修改发送消息颜色\n  /color-recv <颜色> - 修改接收消息颜色\n  /quit - 退出聊天\n支持的颜色: red, green, yellow, blue, magenta, cyan, white, gray, 或者十六进制颜色(如 #ff0000)');
       } else if (command === '/nickname') {
         const newNickname = parts.slice(1).join(' ').trim();
         if (newNickname) {
@@ -37,6 +37,20 @@ async function main() {
           renderSystemMessage(`你的昵称已修改为 ${newNickname}`);
         } else {
           renderSystemMessage('用法: /nickname <新昵称>');
+        }
+      } else if (command === '/color-send') {
+        const color = parts[1];
+        if (color && setSendColor(color)) {
+          renderSystemMessage(`发送消息颜色已修改为 ${color}`);
+        } else {
+          renderSystemMessage('用法: /color-send <颜色> (如: green, red, cyan, 或十六进制如 #ff0000)');
+        }
+      } else if (command === '/color-recv') {
+        const color = parts[1];
+        if (color && setRecvColor(color)) {
+          renderSystemMessage(`接收消息颜色已修改为 ${color}`);
+        } else {
+          renderSystemMessage('用法: /color-recv <颜色> (如: green, red, cyan, 或十六进制如 #ff0000)');
         }
       } else if (command === '/quit') {
         renderSystemMessage('正在退出聊天...');

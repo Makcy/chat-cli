@@ -1,6 +1,6 @@
 {
   "name": "xx-chat",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple LAN CLI chat tool",
   "main": "index.js",
   "type": "module",
