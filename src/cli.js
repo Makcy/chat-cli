@@ -5,7 +5,8 @@ export async function parseCli() {
   program
     .option('-r, --role <type>', 'Role: server or client')
     .option('-i, --ip <ip>', 'Server IP to connect to (if client)')
-    .option('-n, --nickname <name>', 'Your nickname');
+    .option('-n, --nickname <name>', 'Your nickname')
+    .option('-p, --port <port>', 'Port number', '3000');
 
   program.parse(process.argv);
   const options = program.opts();
@@ -51,5 +52,6 @@ export async function parseCli() {
     role: answers.role || options.role,
     ip: answers.ip || options.ip,
     nickname: answers.nickname || options.nickname,
+    port: options.port,
   };
 }

@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 import { renderSystemMessage, renderChatMessage } from './ui.js';
 
-export function startClient(ip, nickname) {
-  const socket = io(`http://${ip}:3000`);
+export function startClient(ip, nickname, port = 3000) {
+  const socket = io(`http://${ip}:${port}`);
 
   socket.on('connect', () => {
     socket.emit('join', nickname);

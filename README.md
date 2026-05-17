@@ -30,15 +30,16 @@ yarn global add xx-chat
 Start a chat server on your machine and join the chat room:
 
 ```bash
-xx-chat --role server --nickname <YourNickname>
+xx-chat --role server --nickname <YourNickname> --port 3000
 ```
+*(The `--port` parameter is optional and defaults to `3000`)*
 
 ### Start as a Client (Guest)
 
-Join an existing chat server using its IP address:
+Join an existing chat server using its IP address and port:
 
 ```bash
-xx-chat --role client --ip <Server_IP> --nickname <YourNickname>
+xx-chat --role client --ip <Server_IP> --nickname <YourNickname> --port 3000
 ```
 
 *Tip: If you run `xx-chat` without any arguments, it will launch an interactive prompt to help you configure these settings.*
@@ -86,15 +87,16 @@ yarn global add xx-chat
 在你的电脑上启动聊天服务，并作为第一个用户加入：
 
 ```bash
-xx-chat --role server --nickname <你的昵称>
+xx-chat --role server --nickname <你的昵称> --port 3000
 ```
+*（`--port` 参数是可选的，默认端口为 `3000`）*
 
 ### 作为客户端（访客）加入
 
-使用服务端的 IP 地址连接到现有的聊天室：
+使用服务端的 IP 地址和端口连接到现有的聊天室：
 
 ```bash
-xx-chat --role client --ip <服务器的局域网IP> --nickname <你的昵称>
+xx-chat --role client --ip <服务器的局域网IP> --nickname <你的昵称> --port 3000
 ```
 
 *提示：如果你直接输入 `xx-chat` 不带任何参数，程序会通过交互式的问答引导你完成这些配置。*

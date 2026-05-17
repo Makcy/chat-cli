@@ -5,19 +5,19 @@ import { startClient } from './src/client.js';
 import { initUI, renderSystemMessage, renderChatMessage, setSendColor, setRecvColor } from './src/ui.js';
 
 async function main() {
-  const { role, ip, nickname } = await parseCli();
+  const { role, ip, nickname, port } = await parseCli();
 
   let socket;
 
   if (role === 'server') {
     renderSystemMessage('正在启动服务器...');
-    startServer(3000);
-    renderSystemMessage('服务器已启动，监听端口 3000');
+    startServer(port);
+    renderSystemMessage(`服务器已启动，监听端口 ${port}`);
     // 服务端自己也作为一个客户端连接上去
-    socket = startClient('127.0.0.1', nickname);
+    socket = startClient('127.0.0.1', nickname, port);
   } else if (role === 'client') {
-    renderSystemMessage(`正在连接到服务器 ${ip}:3000...`);
-    socket = startClient(ip, nickname);
+    renderSystemMessage(`正在连接到服务器 ${ip}:${port}...`);
+    socket = startClient(ip, nickname, port);
   }
 
   let currentNickname = nickname;
