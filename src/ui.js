@@ -50,11 +50,15 @@ export function initUI(onMessage) {
   rl.prompt();
 
   rl.on('line', (line) => {
+    // 擦除用户按下回车后留在屏幕上的原始输入内容
+    process.stdout.write('\x1B[1A\x1B[2K\x1B[0G');
+
     const text = line.trim();
     if (text) {
       onMessage(text);
+    } else {
+      rl.prompt();
     }
-    rl.prompt();
   });
 }
 
